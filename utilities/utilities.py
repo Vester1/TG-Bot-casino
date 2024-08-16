@@ -1,5 +1,5 @@
 from aiogram.types import Message, BotCommand
-from keyboards.casino_keyboards import get_kb_bet
+from keyboards.base_keyboards import get_kb_bet
 from aiogram import Bot
 
 from lexicon_ru import L_RU
@@ -16,6 +16,14 @@ DICE_COMB = {
     'odd': ([1, 3, 5], 2),
     '1': ([1], 6), '2': ([2], 6), '3': ([3], 6),
     '4': ([4], 6), '5': ([5], 6), '6': ([6], 6),
+}
+
+BASK_COMB = {
+    1: 0,
+    2: 0.3,
+    3: 0.7,
+    4: 1.5,
+    5: 2,
 }
 
 

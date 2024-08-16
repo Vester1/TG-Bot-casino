@@ -3,12 +3,16 @@ from aiogram.filters.callback_data import CallbackQuery
 from aiogram.types import Message
 
 from utilities.utilities import update_bet_text, BETS, PREV_BETS
-from keyboards.casino_keyboards import get_kb_bet, get_kb_choose_game, BetCallbackData
-from keyboards.base_keyboards import get_kb_main_menu
+from keyboards.base_keyboards import get_kb_main_menu, get_kb_bet, get_kb_choose_game, BetCallbackData
 from lexicon_ru import L_RU
 
 router = Router()
 L_RU_cas = L_RU['casino']
+
+
+@router.message(F.dice)
+async def bla(message: Message):
+    print(message.dice.value)
 
 
 @router.message(F.text == '💸Пополнить баланс💸')
