@@ -2,6 +2,7 @@ import asyncio
 
 from aiogram import Router, F
 from aiogram.filters.callback_data import CallbackQuery
+import json
 
 from lexicon_ru import L_RU
 from utilities.utilities import BETS, DICE_COMB

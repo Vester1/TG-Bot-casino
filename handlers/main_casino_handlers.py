@@ -10,9 +10,10 @@ router = Router()
 L_RU_cas = L_RU['casino']
 
 
-@router.message(F.dice)
+@router.message(F.text == '\\')
 async def bla(message: Message):
-    print(message.dice.value)
+    msg = await message.answer_dice(emoji='🎰')
+    await message.answer(text=f'{msg.dice.value}')
 
 
 @router.message(F.text == '💸Пополнить баланс💸')
@@ -80,3 +81,17 @@ async def callback_cancel_bet(callback: CallbackQuery):
     await callback.message.answer(text=L_RU['commands']['menu'],
                                   reply_markup=get_kb_main_menu())
     await callback.answer()
+
+
+@router.callback_query(F.data == 'choose_game_menu')
+async def back_to_choose_game_menu(callback: CallbackQuery, balance: list[int]):
+    await callback.answer()
+    await callback.message.delete()
+    if not BETS.get(callback.from_user.id, 0):
+        await callback.message.answer(f"{L_RU_cas['make_1st_bet']}\n{L_RU_cas['bet_balance'].format(balance[0], 0)}",
+                                      reply_markup=get_kb_bet())
+    elif BETS[callback.from_user.id] > balance[0]:
+        await callback.message.answer(L_RU_cas['not_engh_m'] + L_RU_cas['bet_balance']
+                  .format(balance[0], BETS[callback.from_user.id]), reply_markup=get_kb_bet())
+    else:
+        await callback.message.answer(L_RU_cas['choose_game'], reply_markup=get_kb_choose_game())
