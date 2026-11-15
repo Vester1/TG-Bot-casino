@@ -1,7 +1,24 @@
 services:
   casino:
     build: .
-    image: casino:latest
-    network_mode: host
+    env_file: .env
+    command: sh -c "python -m migrations.create_tables && exec python -u main.py"
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:17
+    env_file: .env
+    restart: unless-stopped
     volumes:
-      - .:/app
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  postgres_data:
