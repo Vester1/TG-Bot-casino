@@ -1,11 +1,13 @@
+from typing import Set
+
 from aiogram.types import Message, BotCommand
 from keyboards.base_keyboards import get_kb_bet
 from aiogram import Bot
 
 from lexicon_ru import L_RU
 
-BETS = {}
-PREV_BETS = {}
+ID_IN_PROGRESS: Set[int] = set()
+
 DICE_COMB = {
     '1-2': ([1, 2], 3),
     '3-4': ([3, 4], 3),

@@ -48,10 +48,18 @@ def get_kb_choose_game():
     return builder.as_markup()
 
 
-def get_kb_play_again(emoji):
+def get_kb_play_again(game):
+    EMOJIES = {
+            'slot': '🎰',
+            'dice': '🎲',
+            'darts': '🎯',
+            'bowling': '🎳',
+            'basket': '🏀',
+            'soccer': '⚽️',
+    }
     kb = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(callback_data=f'again{emoji}',
-                              text=f'{emoji}{L_RU_kb["pl_again"]}{emoji}')],
+        [InlineKeyboardButton(callback_data=f'again_{game}',
+                              text=f'{EMOJIES[game]}{L_RU_kb["pl_again"]}{EMOJIES[game]}')],
         [InlineKeyboardButton(callback_data='choose_game_menu', text=L_RU_kb['back_to_choose_game'])]
     ], )
     return kb

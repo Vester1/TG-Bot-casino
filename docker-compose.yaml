@@ -1,0 +1,7 @@
+services:
+  casino:
+    build: .
+    image: casino:latest
+    network_mode: host
+    volumes:
+      - .:/app
