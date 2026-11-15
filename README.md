@@ -23,7 +23,7 @@
 Сделайте git-clone проекта
 ```bash
 git clone https://github.com/Vester1/TG-Bot-casino.git
-cd casinobot
+cd TG-Bot-casino
 ```
 
 Скопируйте файл _.env.example_ в _.env_ и откройте его
